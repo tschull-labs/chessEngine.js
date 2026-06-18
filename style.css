@@ -1,4 +1,4 @@
-.chess div {
+.board div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,7 +7,7 @@
     user-select: none;
 }
 
-.chess {
+.board {
     display: grid;
     grid-template-columns: repeat(8, 60px);
     grid-template-rows: repeat(8, 60px);
@@ -16,16 +16,16 @@
 }
 
 /* Odd rows (1,3,5,7): odd=light, even=dark */
-.chess div:nth-child(odd)  { background-color: #f0d9b5; }
-.chess div:nth-child(even) { background-color: #b58863; }
+.board div:nth-child(odd)  { background-color: #f0d9b5; }
+.board div:nth-child(even) { background-color: #b58863; }
 
 /* Even rows (2,4,6,8): swap the colors */
-.chess div:nth-child(16n+9),
-.chess div:nth-child(16n+11),
-.chess div:nth-child(16n+13),
-.chess div:nth-child(16n+15) { background-color: #b58863; }
+.board div:nth-child(16n+9),
+.board div:nth-child(16n+11),
+.board div:nth-child(16n+13),
+.board div:nth-child(16n+15) { background-color: #b58863; }
 
-.chess div:nth-child(16n+10),
-.chess div:nth-child(16n+12),
-.chess div:nth-child(16n+14),
-.chess div:nth-child(16n+16) { background-color: #f0d9b5; }
+.board div:nth-child(16n+10),
+.board div:nth-child(16n+12),
+.board div:nth-child(16n+14),
+.board div:nth-child(16n+16) { background-color: #f0d9b5; }
