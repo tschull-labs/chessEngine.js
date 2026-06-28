@@ -1,5 +1,8 @@
 let squares = {};
 let activeSquare = null;
+let activePiece = null;
+let pieceClicked = false;
+let legalMove = false;
 const startPos = {
   1: "♜",
   2: "♞",
@@ -42,15 +45,40 @@ for (let i = 1; i <= 64; i++) {
   }
 
   squares[i].addEventListener("click", () => {
-    if (squares[i].textContent) {
-      activeSquare = squares[i];
-      console.log(`square ${i} clicked`);
-      console.log(activeSquare);
-      if (activeSquare !== null) {
-        activeSquare = null;
+    if (!pieceClicked) {
+      if (squares[i].textContent) {
+        activeSquare = i;
+        activePiece = squares[i].textContent;
+        pieceClicked = true;
+      }
+    } else {
+      const getLegalMoves = () => {
+        const col = (activeSquare - 1) % 8;
+        const row = Math.floor((activeSquare - 1) / 8);
+        if (activePiece === "♙") {
+          if (!squares[activeSquare - 8]?.textContent) {
+            moves.push(activeSquare - 8);
+            if (row === 6 && !squares[activeSquare - 16]?.textContent) {
+              moves.push(activeSquare - 16);
+            }
+          }
+          if (col > 0 && squares[activeSquare - 9]?.textContent === "♟") {
+            moves.push(activeSquare - 9);
+          }
+          if (col < 7 && squares[activeSquare - 7]?.textContent === "♟") {
+            moves.push(activeSquare - 7);
+          }
+          return moves;
+        }
+      };
+      const moves = getLegalMoves();
+      legalMove = moves.includes(i);
+      if (legalMove) {
+        squares[i].textContent = activePiece;
+        squares[activeSquare].textContent = "";
+        pieceClicked = false;
+      } else {
       }
     }
   });
 }
-
-console.log(squares);
