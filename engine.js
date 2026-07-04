@@ -3,6 +3,8 @@ let activeSquare = null;
 let activePiece = null;
 let pieceClicked = false;
 let legalMove = false;
+const blackPieces = ["♟", "♜", "♞", "♝", "♛", "♚"];
+const whitePieces = ["♙", "♖", "♘", "♗", "♕", "♔"];
 const startPos = {
   1: "♜",
   2: "♞",
@@ -62,13 +64,28 @@ for (let i = 1; i <= 64; i++) {
               moves.push(activeSquare - 16);
             }
           }
-          if (col > 0 && squares[activeSquare - 9]?.textContent === "♟") {
+          if (
+            col > 0 &&
+            blackPieces.includes(squares[activeSquare - 9]?.textContent)
+          ) {
             moves.push(activeSquare - 9);
           }
-          if (col < 7 && squares[activeSquare - 7]?.textContent === "♟") {
+          if (
+            col < 7 &&
+            blackPieces.includes(squares[activeSquare - 7]?.textContent)
+          ) {
             moves.push(activeSquare - 7);
           }
           return moves;
+        }
+        if (activePiece === "♖") {
+          if (
+            col === 0 &&
+            row === 7 &&
+            !squares[activeSquare - 9]?.textContent
+          ) {
+            moves.push(activeSquare - 9);
+          }
         }
       };
       const moves = getLegalMoves();
