@@ -1,0 +1,47 @@
+if (!pieceClicked) {
+    if (target.textContent) {
+      activeSquare = target;
+      activePiece = target.textContent;
+      pieceClicked = true;
+    }
+    console.log(pieceClicked);
+  } else {
+    const getLegalMoves = () => {
+      const col = (activeSquare - 1) % 8;
+      const row = Math.floor((activeSquare - 1) / 8);
+      if (activePiece === "♙") {
+        if (!squares[activeSquare - 8]?.textContent) {
+          moves.push(activeSquare - 8);
+          if (row === 6 && !squares[activeSquare - 16]?.textContent) {
+            moves.push(activeSquare - 16);
+          }
+        }
+        if (
+          col > 0 &&
+          blackPieces.includes(squares[activeSquare - 9]?.textContent)
+        ) {
+          moves.push(activeSquare - 9);
+        }
+        if (
+          col < 7 &&
+          blackPieces.includes(squares[activeSquare - 7]?.textContent)
+        ) {
+          moves.push(activeSquare - 7);
+        }
+        return moves;
+      }
+      if (activePiece === "♖") {
+        if (col === 0 && row === 7 && !squares[activeSquare - 9]?.textContent) {
+          moves.push(activeSquare - 9);
+        }
+      }
+    };
+    const moves = getLegalMoves();
+    legalMove = moves.includes(target);
+    if (legalMove) {
+      target.textContent = activePiece;
+      squares[activeSquare].textContent = "";
+      pieceClicked = false;
+    } else {
+    }
+  }
