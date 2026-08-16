@@ -39,63 +39,29 @@ const startPos = {
   63: "♘",
   64: "♖",
 };
+const board = document.querySelector(".board");
 
 for (let i = 1; i <= 64; i++) {
   squares[i] = document.getElementById(String(i));
   if (startPos[i]) {
     squares[i].textContent = startPos[i];
   }
-
-  squares[i].addEventListener("click", () => {
-    if (!pieceClicked) {
-      if (squares[i].textContent) {
-        activeSquare = i;
-        activePiece = squares[i].textContent;
-        pieceClicked = true;
-      }
-    } else {
-      const getLegalMoves = () => {
-        const col = (activeSquare - 1) % 8;
-        const row = Math.floor((activeSquare - 1) / 8);
-        if (activePiece === "♙") {
-          if (!squares[activeSquare - 8]?.textContent) {
-            moves.push(activeSquare - 8);
-            if (row === 6 && !squares[activeSquare - 16]?.textContent) {
-              moves.push(activeSquare - 16);
-            }
-          }
-          if (
-            col > 0 &&
-            blackPieces.includes(squares[activeSquare - 9]?.textContent)
-          ) {
-            moves.push(activeSquare - 9);
-          }
-          if (
-            col < 7 &&
-            blackPieces.includes(squares[activeSquare - 7]?.textContent)
-          ) {
-            moves.push(activeSquare - 7);
-          }
-          return moves;
-        }
-        if (activePiece === "♖") {
-          if (
-            col === 0 &&
-            row === 7 &&
-            !squares[activeSquare - 9]?.textContent
-          ) {
-            moves.push(activeSquare - 9);
-          }
-        }
-      };
-      const moves = getLegalMoves();
-      legalMove = moves.includes(i);
-      if (legalMove) {
-        squares[i].textContent = activePiece;
-        squares[activeSquare].textContent = "";
-        pieceClicked = false;
-      } else {
-      }
-    }
-  });
 }
+
+board.addEventListener("click", (event) => {
+  let target = event.target;
+  console.log("event:", target.textContent);
+  console.log("target:", target);
+  if (target.textContent === "") {
+    deselectSquares();
+  } else {
+    deselectSquares();
+    target.classList.toggle("selected");
+  }
+});
+
+const deselectSquares = () => {
+  for (let i = 1; i <= 64; i++) {
+    squares[i].classList.remove("selected");
+  }
+};
