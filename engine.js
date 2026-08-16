@@ -52,11 +52,11 @@ board.addEventListener("click", (event) => {
   let target = event.target;
   console.log("event:", target.textContent);
   console.log("target:", target);
-  if (target.textContent !== "") {
+  if (target.textContent === "") {
     deselectSquares();
-    target.classList.toggle("selected");
   } else {
     deselectSquares();
+    target.classList.toggle("selected");
   }
 });
 
