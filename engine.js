@@ -60,8 +60,7 @@ board.addEventListener("click", (event) => {
   }
 });
 
-const deselectSquares = (fieldID) => {
-  console.log("fieldID:", fieldID);
+const deselectSquares = () => {
   for (let i = 1; i <= 64; i++) {
     squares[i].classList.remove("selected");
   }
